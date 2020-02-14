@@ -1,0 +1,13 @@
+node {
+   stage('Git-Checkout for Teraform') {
+   git 'https://github.com/vibhavanya/terraform.git'
+  }
+
+ def project_terraform="Terraform"
+ dir(project_terra)form {
+   stage('Creating instance ready on AWS'){
+   sh label: 'terraform', script: '/bin/terraform  init'
+   sh label: 'terraform', script: '/bin/terraform  apply -input=false -auto-approve'
+   }
+  }
+ }
