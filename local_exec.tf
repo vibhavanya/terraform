@@ -2,25 +2,28 @@ terraform {
   backend "local" {
     path = "/tmp/terraform/workspace/terraform.tfstate"
   }
+
 }
 
 provider "aws" {
-  region = "ap-south-1"
+  region = "us-west-2"
+  
 }
 
 resource "aws_instance" "backend" {
-  ami                    = "ami-0927ed83617754711"
+  ami                    = "ami-0994c095691a46fb5"
   instance_type          = "t2.micro"
-  key_name               = var.key_name
-  vpc_security_group_ids = [var.sg-id]
+  key_name               = "${var.key_name}"
+  vpc_security_group_ids = ["${var.sg-id}"]
+
 }
 
 resource "null_resource" "remote-exec-1" {
-  connection {
+    connection {
     user        = "ubuntu"
     type        = "ssh"
-    private_key = file(var.pvt_key)
-    host        = aws_instance.backend.public_ip
+    private_key = "${file(var.pvt_key)}"
+    host        = "${aws_instance.backend.public_ip}"
   }
 
   provisioner "remote-exec" {
@@ -32,16 +35,13 @@ resource "null_resource" "remote-exec-1" {
 }
 
 resource "null_resource" "ansible-main" {
-  provisioner "local-exec" {
-    command = <<EOT
+provisioner "local-exec" {
+  command = <<EOT
         sleep 100;
         > jenkins-ci.ini;
         echo "[jenkins-ci]"| tee -a jenkins-ci.ini;
         export ANSIBLE_HOST_KEY_CHECKING=False;
         echo "${aws_instance.backend.public_ip}" | tee -a jenkins-ci.ini;
-    
-EOT
-
-  }
+    EOT
 }
-
+}
