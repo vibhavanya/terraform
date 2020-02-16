@@ -1,5 +1,5 @@
 variable "key_name" {
-  default = "oregon1"
+  default = "vibhakey"
 }
 
 variable "pvt_key" {
@@ -11,5 +11,5 @@ variable "us-east-zones" {
 }
 
 variable "sg-id" {
-  default = "sg-03ac9f8eb19fb3bd6"
+  default = "sg-0b73e06e2edcbd8b0"
 }
