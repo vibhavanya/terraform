@@ -1,5 +1,5 @@
 variable "key_name" {
-  default = "vibhakey"
+  default = "vibha1"
 }
 
 variable "pvt_key" {
@@ -11,5 +11,5 @@ variable "us-east-zones" {
 }
 
 variable "sg-id" {
-  default = "sg-0b73e06e2edcbd8b0"
+  default = "sg-062f67410e376b10c"
 }
