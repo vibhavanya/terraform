@@ -1,8 +1,5 @@
 node {
-   stage('Git-Checkout for Teraform') {
-   git 'https://github.com/vibhavanya/terraform.git'
-  }
-  
+   
   def project_terra=""
   dir(project_terra) {
 		stage('Prod Deployment on AWS'){
