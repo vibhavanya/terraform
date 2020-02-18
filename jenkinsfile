@@ -3,9 +3,8 @@ node {
    git 'https://github.com/vibhavanya/terraform.git'
   }
 
-		stage('Prod Deployment on AWS'){
-		sh label: 'terraform', script: '/root/bin/terraform  init'
-		sh label: 'terraform', script: '/root/bin/terraform  apply -input=false -auto-approve'
-		
-	}
+	stage('AWS - Production Server Provisioning'){
+	   sh label: 'terraform', script: '/root/bin/terraform  init'
+	   sh label: 'terraform', script: '/root/bin/terraform  apply -input=false -auto-approve'
+	   }
  }
